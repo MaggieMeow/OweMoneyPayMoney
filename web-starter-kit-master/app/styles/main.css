@@ -135,9 +135,10 @@ html, body {
 .mdl-demo section > header > .material-icons {
   font-size: 3rem;
 }
-.mdl-demo section > button {
+.mdl-demo section > button #add {
   position: absolute;
   z-index: 99;
+
   top: 8px;
   right: 8px;
 }
@@ -240,4 +241,9 @@ td {
 
 form {
   margin: 48px;
+}
+
+.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab .submit-button {
+  margin-bottom: 48
+  
 }
