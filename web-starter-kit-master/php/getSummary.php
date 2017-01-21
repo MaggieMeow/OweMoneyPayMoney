@@ -37,7 +37,7 @@ if ($cmd == 'register') {
 	$result = $db->query($sql);
 	if ( $result->num_rows > 0 ) {
 		$user = $result->fetch_assoc();
-		$sql = "SELECT u1.ID uid1, u2.ID uid2, u1.email user1, u2.email user2, records.amount FROM records, users u1, users u2 WHERE records.user1 = u1.id AND records.user2 = u2.id AND records.user1 = " . intval($user['ID']) . " OR records.user2 = " . intval($user['ID']) . "";
+		$sql = "SELECT u1.ID uid1, u2.ID uid2, u1.email user1, u2.email user2, records.amount FROM records, users u1, users u2 WHERE records.user1 = u1.id AND records.user2 = u2.id AND (records.user1 = " . intval($user['ID']) . " OR records.user2 = " . intval($user['ID']) . ")";
 		$result = $db->query($sql);
 		while ( $row = $result->fetch_assoc() ) {
 			$output['record'][] = $row;
@@ -53,14 +53,14 @@ if ($cmd == 'register') {
 	$uid1 = 0;
 	$uid2 = 0;
 
-	$sql = "SELECT * FROM users WHERE email = '" . $db->escape_string($email1) . "'";
+	$sql = "SELECT * FROM users WHERE email = '" . $db->escape_string($user1) . "'";
 	$result = $db->query($sql);
 	if ( $result->num_rows > 0 ) {
 		$user = $result->fetch_assoc();
 		$uid1 = $user["ID"];
 	}
 
-	$sql = "SELECT * FROM users WHERE email = '" . $db->escape_string($email2) . "'";
+	$sql = "SELECT * FROM users WHERE email = '" . $db->escape_string($user2) . "'";
 	$result = $db->query($sql);
 	if ( $result->num_rows > 0 ) {
 		$user = $result->fetch_assoc();
