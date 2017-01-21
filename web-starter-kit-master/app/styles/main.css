@@ -243,7 +243,16 @@ form {
   margin: 48px;
 }
 
-.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab .submit-button {
-  margin-bottom: 48
-  
+
+.radio-text {
+  font-size: 25px;
+  vertical-align: middle;
 }
+
+.deadline {
+  font-size: 16px;
+  margin-top: 24px;
+  margin-bottom: 48px;
+  vertical-align: middle;
+}
+

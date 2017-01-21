@@ -87,103 +87,113 @@
           }
         </script>
 
-           <div id="my-signin2" style="padding:16px 0px 0px 5px"></div>
+        <!-- Google sign in and out -->
+        <div id="my-signin2" style="padding:16px 0px 0px 5px"></div>
 
-           <script>
-    function onSuccess(googleUser) {
+          <script src="scripts/main.js">
+            function onSuccess(googleUser) {
 
-      var profile = googleUser.getBasicProfile();
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
+              var profile = googleUser.getBasicProfile();
+              console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+              console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+              console.log('Name: ' + profile.getName());
+              console.log('Image URL: ' + profile.getImageUrl());
+              console.log('Email: ' + profile.getEmail());
 
-  var myUserEntity = {};
-  myUserEntity.Email = profile.getEmail();
+              var myUserEntity = {};
+              myUserEntity.Email = profile.getEmail();
 
-  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
-
-
-  
-  //console.log("test: " + auth2.currentUser.get().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 150,
-        'height': 30,
-        'longtitle': false,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
+              sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
 
-  </script>
 
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
-  <a id="signOutText" href="#" onclick="signOutGoogle();" class="mdl-layout__tab" style="d">Sign out</a>
-<script>
-  function signOutGoogle() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.disconnect().then(function () {
-      console.log('User signed out.');
-      location.reload();
-    });
-   sessionStorage.clear();
-  }
-</script>
-<script>
-          
-         if(sessionStorage.getItem('myUserEntity') !== null) {
-          var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-          console.log(em.Email);
-            document.getElementById("my-signin2").style.display = "none";
-           // document.getElementById("signOutText").style.display = "inline";
+            //console.log("test: " + auth2.currentUser.get().getName());
+            }
+            function onFailure(error) {
+              console.log(error);
+            }
+            function renderButton() {
+              gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 150,
+                'height': 30,
+                'longtitle': false,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+              });
+            }
 
-         } else {
-          document.getElementById("signOutText").style.display = "none";
-          //document.getElementById("my-signin2").style.display = "inline";
-         }
-          
+
           </script>
 
-      </div>
+          <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
-         
-    </header>
+          <a id="signOutText" href="#" onclick="signOutGoogle();" class="mdl-layout__tab" style="d">Sign out</a>
+          <script>
+            function signOutGoogle() {
+              var auth2 = gapi.auth2.getAuthInstance();
+              auth2.disconnect().then(function () {
+                console.log('User signed out.');
+                location.reload();
+              });
+              sessionStorage.clear();
+            }
+          </script>
+          <script>
+
+           if(sessionStorage.getItem('myUserEntity') !== null) {
+            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+            console.log(em.Email);
+            document.getElementById("my-signin2").style.display = "none";
+             // document.getElementById("signOutText").style.display = "inline";
+
+            } else {
+              document.getElementById("signOutText").style.display = "none";
+              //document.getElementById("my-signin2").style.display = "inline";
+            }
+
+          </script>
+
+        </div>
 
 
-    <main class="mdl-layout__content">
-
-      <!-- New Entry -->
-      <div class="mdl-layout__tab-panel" id="entry-form">
-        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+  </header>
 
 
-          <form action="#">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="sample3">
-              <label class="mdl-textfield__label" for="sample3"> Name </label>
-            </div>
-            <br>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-              <label class="mdl-textfield__label" for="sample4">Amount $</label>
-              <span class="mdl-textfield__error">You didn't enter a number:(.</span>
-            </div>
-          </form>
-          
-          <!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+  <main class="mdl-layout__content">
+
+    <!-- New Entry -->
+    <div class="mdl-layout__tab-panel" id="entry-form">
+      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+
+
+        <form action="#">
+        <div>
+          <input type="radio" name="entry-category" value="owe" checked /> <label class="radio-text">I owe...</label> </div>
+          <br>
+          <div>
+          <input type="radio" name="entry-category" value="owed"> <label class="radio-text">I lent...</label></div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="sample3">
+            <label class="mdl-textfield__label" for="sample3"> Name </label>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
+            <label class="mdl-textfield__label" for="sample4">Amount $</label>
+            <span class="mdl-textfield__error">You didn't enter a number:(.</span>
+          </div>
+          <div class="deadline">Deadline: <input type="date" name="deadline"> </div>
+          <div> </div>
+          <div> </div>
+          <div> </div>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button">
             Submit
-          </button> -->
+          </button>
+        </form>
 
         </section>
       </div>
