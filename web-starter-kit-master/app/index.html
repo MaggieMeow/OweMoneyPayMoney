@@ -70,7 +70,7 @@
       </div>
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
         <a href="#overview" class="mdl-layout__tab is-active">Overview</a>
-        <a href="#credit-summary" class="mdl-layout__tab">Friends</a>
+        <a href="#friend-list" class="mdl-layout__tab">Friends</a>
         <!-- <a href="#debt-summary" class="mdl-layout__tab">Debt</a> -->
         <!-- <a href="#features" class="mdl-layout__tab">Technology</a> -->
         <a href="#entry-form" style="display: none;" class="mdl-layout__tab", id="entry-tab"> Entry</a>
@@ -171,7 +171,7 @@
 
       <main class="mdl-layout__content">
 
-        <!-- New Entry -->
+        <!-- New Entry Tab-->
         <div class="mdl-layout__tab-panel" id="entry-form">
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 
@@ -216,7 +216,7 @@
                   <div class="mdl-card__supporting-text">
                     <h4>To Receive</h4>
                     <div id="summary-card-1">asdfasd</div>
-                    
+
                     <table style="width:100%" id="credit-table">
                       <!-- To add from database -->
 
@@ -229,9 +229,9 @@
 
 
                 </div>
-                <butmdl-layout__tab-barton class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
+                <!-- <butmdl-layout__tab-barton class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
                 <i class="material-icons">more_vert</i>
-              </button>
+              </button> -->
               <!-- <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
                 <li class="mdl-menu__item">Lorem</li>
                 <li class="mdl-menu__item" disabled>Ipsum</li>
@@ -241,12 +241,15 @@
 
             <!-- Second Section -->
             <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              
+
               <div class="mdl-card mdl-cell mdl-cell--12-col">
                 <div class="mdl-card__supporting-text">
                   <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
 
+                  <!-- To add from database -->
                   <table style="width:100%" id="debt-table">
-                    <!-- To add from database -->
+
                     <tr><td>Test</td></tr>
                     <tr><td>Test</td></tr>
                     <tr><td>Test</td></tr>
@@ -257,9 +260,9 @@
                 </div>
 
               </div>
-              <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
+              <!-- <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
                 <i class="material-icons">more_vert</i>
-              </button>
+              </button> -->
               <!-- <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
                 <li class="mdl-menu__item">Lorem</li>
                 <li class="mdl-menu__item" disabled>Ipsum</li>
@@ -268,33 +271,39 @@
             </section>
           </div>
 
-          <!-- Credit Tab -->
-          <div class="mdl-layout__tab-panel" id="credit-summary">
-            <section class="section--center mdl-grid mdl-grid--no-spacing">
-              <div class="mdl-cell mdl-cell--12-col">
-                <h4>Credit Summary</h4>
-                Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-                <ul class="toc">
-                  <h4>Contents</h4>
-                  <a href="#lorem1">Lorem ipsum</a>
-                  <a href="#lorem2">Lorem ipsum</a>
-                  <a href="#lorem3">Lorem ipsum</a>
-                  <a href="#lorem4">Lorem ipsum</a>
-                  <a href="#lorem5">Lorem ipsum</a>
-                </ul>
+          <!-- Friend list Tab -->
+          <div class="mdl-layout__tab-panel" id="friend-list">
+           <script type="text/javascript">
+              window.onload = function() {
+                var section = document.getElementById("friend-list");
+                for (/*number of people in data base*/var k = 0; k < 5; k++ ) {
+                  var new_card = document.createElement('div');
+                  
+                  new_card.innerHTML = '<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">' +
+                                        '<div class="mdl-card mdl-cell mdl-cell--12-col">' +
+                                        '<div class="mdl-card__supporting-text">' +
+                                        '<h4 class="mdl-cell mdl-cell--12-col"> Name </h4>' +
+                                        
+                                        '<table style="width:100%" id="history-table">' +
 
-                <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
-                Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
-                <ul>
-                  <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
-                  <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
-                  <li>Lorem labore proident officia excepteur do.</li>
-                </ul>
-
-                <p>
-                  Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
-                </p>
-              </div>
+                                        '<tr><td>Test</td></tr>' +
+                                        '<tr><td>Test</td></tr>' +
+                                        '<tr><td>Test</td></tr>' +
+                                        '<tr><td>Test</td></tr>' +
+                                        '<tr><td>Test</td></tr>' +
+                                        '</table>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</section>';
+                  section.appendChild(new_card);
+                }
+                
+                
+                }
+            </script>
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+             
+              
             </section>
           </div>
 
@@ -374,7 +383,7 @@
             </div>
             <div class="mdl-mega-footer--bottom-section">
               <div class="mdl-logo">
-                HacknRoll 2017: Lu Yu, Maggie Li Yundi, Yun Heng
+                HacknRoll 2017: Lu Yu, Maggie Li Yundi, Mong Yun Heng
               </div>
               <ul class="mdl-mega-footer--link-list">
 
