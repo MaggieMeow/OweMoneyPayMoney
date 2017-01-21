@@ -50,7 +50,7 @@ if ($cmd == 'register') {
 	$user1 = $_POST['email1'];
 	$user2 = $_POST['email2'];
 	$amount = $_POST['amount'];
-	$uid1 = 0
+	$uid1 = 0;
 	$uid2 = 0;
 
 	$sql = "SELECT * FROM users WHERE email = '" . $db->escape_string($email1) . "'";
