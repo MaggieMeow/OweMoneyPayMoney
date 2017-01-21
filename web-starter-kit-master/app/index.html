@@ -30,6 +30,7 @@
 
   <!-- Color the status bar on mobile devices -->
   <meta name="theme-color" content="#2F3BA2">
+  <meta name="google-signin-client_id" content="897451018085-51rh21kcndva3u83t7ppdl8g97nr65c2.apps.googleusercontent.com">
 
   <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
@@ -51,6 +52,7 @@
 
   <!-- Your styles -->
   <link rel="stylesheet" href="styles/main.css">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 
@@ -83,8 +85,77 @@
           }
         </script>
 
+           <div id="my-signin2" style="padding:16px 0px 0px 5px"></div>
+
+           <script>
+    function onSuccess(googleUser) {
+
+      var profile = googleUser.getBasicProfile();
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+
+  var myUserEntity = {};
+  myUserEntity.Email = profile.getEmail();
+
+  sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+
+
+  
+  //console.log("test: " + auth2.currentUser.get().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 150,
+        'height': 30,
+        'longtitle': false,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+
+
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+  <a id="signOutText" href="#" onclick="signOutGoogle();" class="mdl-layout__tab" style="d">Sign out</a>
+<script>
+  function signOutGoogle() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.disconnect().then(function () {
+      console.log('User signed out.');
+      location.reload();
+    });
+   sessionStorage.clear();
+  }
+</script>
+<script>
+          
+         if(sessionStorage.getItem('myUserEntity') !== null) {
+          var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+          console.log(em.Email);
+            document.getElementById("my-signin2").style.display = "none";
+           // document.getElementById("signOutText").style.display = "inline";
+
+         } else {
+          document.getElementById("signOutText").style.display = "none";
+          //document.getElementById("my-signin2").style.display = "inline";
+         }
+          
+          </script>
 
       </div>
+
+         
     </header>
 
 
@@ -106,12 +177,11 @@
               <label class="mdl-textfield__label" for="sample4">Amount $</label>
               <span class="mdl-textfield__error">You didn't enter a number:(.</span>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button">
-              Submit
-            </button>
           </form>
           
-
+          <!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Submit
+          </button> -->
 
         </section>
       </div>
@@ -280,7 +350,7 @@
       </div>
       <div class="mdl-mega-footer--bottom-section">
         <div class="mdl-logo">
-          HacknRoll 2017: Lu Yu, Maggie Li Yundi, Mong Yun Heng
+          HacknRoll 2017: Lu Yu, Maggie Li Yundi, Yun Heng
         </div>
         <ul class="mdl-mega-footer--link-list">
 
