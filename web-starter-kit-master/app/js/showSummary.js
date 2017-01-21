@@ -21,7 +21,7 @@
         var email = $("#sample3").val();
         var amount = $("#sample4").val();
 
-        if ($('#owe').is(':checked')) {
+        if ($('#owed').is(':checked')) {
             e.preventDefault();
         if(sessionStorage.getItem('myUserEntity') !== null) {
             var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
@@ -40,7 +40,7 @@
             });
         }
         } 
-        if ($('#owed').is(':checked')) {
+        if ($('#owe').is(':checked')) {
             e.preventDefault();
         if(sessionStorage.getItem('myUserEntity') !== null) {
             var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
