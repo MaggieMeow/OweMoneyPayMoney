@@ -73,28 +73,35 @@
         <a href="#credit-summary" class="mdl-layout__tab">Credit</a>
         <a href="#debt-summary" class="mdl-layout__tab">Debt</a>
         <!-- <a href="#features" class="mdl-layout__tab">Technology</a> -->
-        <a href="#entry-form" style="" class="mdl-layout__tab"> Entry</a>
+        <a href="#entry-form" style="display: none;" class="mdl-layout__tab", id="entry-tab"> Entry</a>
 
         <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add" onclick="addEntry()">
           <i class="material-icons" role="presentation">add</i>
           <!-- <span class="visuallyhidden">Add</span> -->
         </button>
         
+        <!--  -->
         <script>
           function addEntry() {
-            //console.log("haha");
-            //document.getElementById("footer").style.display = 'none';
+            var active_tab = document.getElementById("entry-tab");
+            var tab_list = document.getElementsByClassName("mdl-layout__tab")
+            for (var k = 0; k < tab_list.length; k++) {
+              tab_list[k].classList.remove("is-active");
+            }
+            active_tab.classList.add("is-active");
+            active_tab.click();
+
           }
         </script>
 
         <!-- Google sign in and out -->
         <div id="my-signin2" style="padding:16px 0px 0px 5px"></div>
 
-          <script src="scripts/main.js">
-            function onSuccess(googleUser) {
+        <script src="scripts/main.js">
+          function onSuccess(googleUser) {
 
-              var profile = googleUser.getBasicProfile();
-              console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+            var profile = googleUser.getBasicProfile();
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
               console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
               console.log('Name: ' + profile.getName());
               console.log('Image URL: ' + profile.getImageUrl());
@@ -109,48 +116,48 @@
 
 
             //console.log("test: " + auth2.currentUser.get().getName());
-            }
-            function onFailure(error) {
-              console.log(error);
-            }
-            function renderButton() {
-              gapi.signin2.render('my-signin2', {
-                'scope': 'profile email',
-                'width': 150,
-                'height': 30,
-                'longtitle': false,
-                'theme': 'dark',
-                'onsuccess': onSuccess,
-                'onfailure': onFailure
-              });
-            }
+          }
+          function onFailure(error) {
+            console.log(error);
+          }
+          function renderButton() {
+            gapi.signin2.render('my-signin2', {
+              'scope': 'profile email',
+              'width': 150,
+              'height': 30,
+              'longtitle': false,
+              'theme': 'dark',
+              'onsuccess': onSuccess,
+              'onfailure': onFailure
+            });
+          }
 
 
-          </script>
+        </script>
 
-          <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
-          <a id="signOutText" href="#" onclick="signOutGoogle();" class="mdl-layout__tab" style="d">Sign out</a>
-          <script>
-            function signOutGoogle() {
-              var auth2 = gapi.auth2.getAuthInstance();
-              auth2.disconnect().then(function () {
-                console.log('User signed out.');
-                location.reload();
-              });
-              sessionStorage.clear();
-            }
-          </script>
-          <script>
+        <a id="signOutText" href="#" onclick="signOutGoogle();" class="mdl-layout__tab" style="d">Sign out</a>
+        <script>
+          function signOutGoogle() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.disconnect().then(function () {
+              console.log('User signed out.');
+              location.reload();
+            });
+            sessionStorage.clear();
+          }
+        </script>
+        <script>
 
-           if(sessionStorage.getItem('myUserEntity') !== null) {
-            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-            console.log(em.Email);
-            document.getElementById("my-signin2").style.display = "none";
+         if(sessionStorage.getItem('myUserEntity') !== null) {
+          var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+          console.log(em.Email);
+          document.getElementById("my-signin2").style.display = "none";
              // document.getElementById("signOutText").style.display = "inline";
 
-            } else {
-              document.getElementById("signOutText").style.display = "none";
+           } else {
+            document.getElementById("signOutText").style.display = "none";
               //document.getElementById("my-signin2").style.display = "inline";
             }
 
@@ -159,238 +166,238 @@
         </div>
 
 
-  </header>
+      </header>
 
 
-  <main class="mdl-layout__content">
+      <main class="mdl-layout__content">
 
-    <!-- New Entry -->
-    <div class="mdl-layout__tab-panel" id="entry-form">
-      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-
-
-        <form action="#">
-        <div>
-          <input type="radio" name="entry-category" value="owe" checked /> <label class="radio-text">I owe...</label> </div>
-          <br>
-          <div>
-          <input type="radio" name="entry-category" value="owed"> <label class="radio-text">I lent...</label></div>
-          <br>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="sample3">
-            <label class="mdl-textfield__label" for="sample3"> Name </label>
-          </div>
-          <br>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
-            <label class="mdl-textfield__label" for="sample4">Amount $</label>
-            <span class="mdl-textfield__error">You didn't enter a number:(.</span>
-          </div>
-          <div class="deadline">Deadline: <input type="date" name="deadline"> </div>
-          <div> </div>
-          <div> </div>
-          <div> </div>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button">
-            Submit
-          </button>
-        </form>
-
-        </section>
-      </div>
+        <!-- New Entry -->
+        <div class="mdl-layout__tab-panel" id="entry-form">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 
 
-      <div class="mdl-layout__tab-panel is-active" id="overview">
-        <!-- First Section -->
-        <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-          <header class="">
-          </header>
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
+            <form action="#">
+              <div>
+                <input type="radio" name="entry-category" value="owe" checked /> <label class="radio-text">I owe...</label> </div>
+                <br>
+                <div>
+                  <input type="radio" name="entry-category" value="owed"> <label class="radio-text">I lent...</label></div>
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="sample3">
+                    <label class="mdl-textfield__label" for="sample3"> Name </label>
+                  </div>
+                  <br>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
+                    <label class="mdl-textfield__label" for="sample4">Amount $</label>
+                    <span class="mdl-textfield__error">You didn't enter a number:(.</span>
+                  </div>
+                  <div class="deadline">Deadline: <input type="date" name="deadline"> </div>
+                  <div> </div>
+                  <div> </div>
+                  <div> </div>
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button">
+                    Submit
+                  </button>
+                </form>
 
-            <div class="mdl-card__supporting-text">
-              <h4>To Receive</h4>
-              <div id="summary-card-1">asdfasd</div>
-              <table style="width:100%" id="credit-table">
-                <!-- To add from database -->
-                
-                <tr><td>Test</td></tr>
-                <tr><td>Test</td></tr>
-                
-                
-              </table>
+              </section>
             </div>
 
 
+            <div class="mdl-layout__tab-panel is-active" id="overview">
+              <!-- First Section -->
+              <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                <header class="">
+                </header>
+                <div class="mdl-card mdl-cell mdl-cell--12-col">
+
+                  <div class="mdl-card__supporting-text">
+                    <h4>To Receive</h4>
+                    <div id="summary-card-1">asdfasd</div>
+                    <table style="width:100%" id="credit-table">
+                      <!-- To add from database -->
+
+                      <tr><td>Test</td></tr>
+                      <tr><td>Test</td></tr>
+
+
+                    </table>
+                  </div>
+
+
+                </div>
+                <butmdl-layout__tab-barton class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
+                <i class="material-icons">more_vert</i>
+              </button>
+              <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
+                <li class="mdl-menu__item">Lorem</li>
+                <li class="mdl-menu__item" disabled>Ipsum</li>
+                <li class="mdl-menu__item">Dolor</li>
+              </ul>
+            </section>
+
+            <!-- Second Section -->
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              <div class="mdl-card mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__supporting-text">
+                  <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
+
+                  <table style="width:100%" id="debt-table">
+                    <!-- To add from database -->
+                    <tr><td>Test</td></tr>
+                    <tr><td>Test</td></tr>
+                    <tr><td>Test</td></tr>
+                    <tr><td>Test</td></tr>
+                    <tr><td>Test</td></tr>
+                  </table>
+
+                </div>
+
+              </div>
+              <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
+                <i class="material-icons">more_vert</i>
+              </button>
+              <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
+                <li class="mdl-menu__item">Lorem</li>
+                <li class="mdl-menu__item" disabled>Ipsum</li>
+                <li class="mdl-menu__item">Dolor</li>
+              </ul>
+            </section>
           </div>
-          <butmdl-layout__tab-barton class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn1">
-          <li class="mdl-menu__item">Lorem</li>
-          <li class="mdl-menu__item" disabled>Ipsum</li>
-          <li class="mdl-menu__item">Dolor</li>
-        </ul>
-      </section>
 
-      <!-- Second Section -->
-      <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-card mdl-cell mdl-cell--12-col">
-          <div class="mdl-card__supporting-text">
-            <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
+          <!-- Credit Tab -->
+          <div class="mdl-layout__tab-panel" id="credit-summary">
+            <section class="section--center mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-cell mdl-cell--12-col">
+                <h4>Credit Summary</h4>
+                Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
+                <ul class="toc">
+                  <h4>Contents</h4>
+                  <a href="#lorem1">Lorem ipsum</a>
+                  <a href="#lorem2">Lorem ipsum</a>
+                  <a href="#lorem3">Lorem ipsum</a>
+                  <a href="#lorem4">Lorem ipsum</a>
+                  <a href="#lorem5">Lorem ipsum</a>
+                </ul>
 
-            <table style="width:100%" id="debt-table">
-              <!-- To add from database -->
-              <tr><td>Test</td></tr>
-              <tr><td>Test</td></tr>
-              <tr><td>Test</td></tr>
-              <tr><td>Test</td></tr>
-              <tr><td>Test</td></tr>
-            </table>
+                <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
+                Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
+                <ul>
+                  <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
+                  <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
+                  <li>Lorem labore proident officia excepteur do.</li>
+                </ul>
 
+                <p>
+                  Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
+                </p>
+              </div>
+            </section>
           </div>
 
-        </div>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn2">
-          <i class="material-icons">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="btn2">
-          <li class="mdl-menu__item">Lorem</li>
-          <li class="mdl-menu__item" disabled>Ipsum</li>
-          <li class="mdl-menu__item">Dolor</li>
-        </ul>
-      </section>
-    </div>
+          <!-- Debt Tab -->
+          <div class="mdl-layout__tab-panel" id="debt-summary">
+            <section class="section--center mdl-grid mdl-grid--no-spacing">
+              <div class="mdl-cell mdl-cell--12-col">
+                <h4>Debt Summary</h4>
+                Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
+                <ul class="toc">
+                  <h4>Contents</h4>
+                  <a href="#lorem1">Lorem ipsum</a>
+                  <a href="#lorem2">Lorem ipsum</a>
+                  <a href="#lorem3">Lorem ipsum</a>
+                  <a href="#lorem4">Lorem ipsum</a>
+                  <a href="#lorem5">Lorem ipsum</a>
+                </ul>
 
-    <!-- Credit Tab -->
-    <div class="mdl-layout__tab-panel" id="credit-summary">
-      <section class="section--center mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--12-col">
-          <h4>Credit Summary</h4>
-          Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-          <ul class="toc">
-            <h4>Contents</h4>
-            <a href="#lorem1">Lorem ipsum</a>
-            <a href="#lorem2">Lorem ipsum</a>
-            <a href="#lorem3">Lorem ipsum</a>
-            <a href="#lorem4">Lorem ipsum</a>
-            <a href="#lorem5">Lorem ipsum</a>
-          </ul>
+                <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
+                Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
+                <ul>
+                  <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
+                  <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
+                  <li>Lorem labore proident officia excepteur do.</li>
+                </ul>
 
-          <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
-          Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
-          <ul>
-            <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
-            <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
-            <li>Lorem labore proident officia excepteur do.</li>
-          </ul>
-
-          <p>
-            Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
-          </p>
-        </div>
-      </section>
-    </div>
-
-    <!-- Debt Tab -->
-    <div class="mdl-layout__tab-panel" id="debt-summary">
-      <section class="section--center mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-cell mdl-cell--12-col">
-          <h4>Debt Summary</h4>
-          Minim duis incididunt est cillum est ex occaecat consectetur. Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
-          <ul class="toc">
-            <h4>Contents</h4>
-            <a href="#lorem1">Lorem ipsum</a>
-            <a href="#lorem2">Lorem ipsum</a>
-            <a href="#lorem3">Lorem ipsum</a>
-            <a href="#lorem4">Lorem ipsum</a>
-            <a href="#lorem5">Lorem ipsum</a>
-          </ul>
-
-          <h5 id="lorem1">Lorem ipsum dolor sit amet</h5>
-          Excepteur et pariatur officia veniam anim culpa cupidatat consequat ad velit culpa est non.
-          <ul>
-            <li>Nisi qui nisi duis commodo duis reprehenderit consequat velit aliquip.</li>
-            <li>Dolor consectetur incididunt in ipsum laborum non et irure pariatur excepteur anim occaecat officia sint.</li>
-            <li>Lorem labore proident officia excepteur do.</li>
-          </ul>
-
-          <p>
-            Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
-          </p>
-        </div>
-      </section>
-    </div>
+                <p>
+                  Do dolor eiusmod eu mollit dolore nostrud deserunt cillum irure esse sint irure fugiat exercitation. Magna sit voluptate id in tempor elit veniam enim cupidatat ea labore elit. Aliqua pariatur eu nulla labore magna dolore mollit occaecat sint commodo culpa. Eu non minim duis pariatur Lorem quis exercitation. Sunt qui ex incididunt sit anim incididunt sit elit ad officia id.
+                </p>
+              </div>
+            </section>
+          </div>
 
 
-    <!-- Footer -->
-    <footer class="mdl-mega-footer" id="footer">
-      <div class="mdl-mega-footer--middle-section">
-        <div class="mdl-mega-footer--drop-down-section">
-          <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer--heading">Features</h1>
-          <ul class="mdl-mega-footer--link-list">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Partners</a></li>
-            <li><a href="#">Updates</a></li>
-          </ul>
-        </div>
-        <div class="mdl-mega-footer--drop-down-section">
-          <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer--heading">Details</h1>
-          <ul class="mdl-mega-footer--link-list">
-            <li><a href="#">Spec</a></li>
-            <li><a href="#">Tools</a></li>
-            <li><a href="#">Resources</a></li>
-          </ul>
-        </div>
-        <div class="mdl-mega-footer--drop-down-section">
-          <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer--heading">Technology</h1>
-          <ul class="mdl-mega-footer--link-list">
-            <li><a href="#">How it works</a></li>
-            <li><a href="#">Patterns</a></li>
-            <li><a href="#">Usage</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Contracts</a></li>
-          </ul>
-        </div>
-        <div class="mdl-mega-footer--drop-down-section">
-          <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
-          <h1 class="mdl-mega-footer--heading">FAQ</h1>
-          <ul class="mdl-mega-footer--link-list">
-            <li><a href="#">Questions</a></li>
-            <li><a href="#">Answers</a></li>
-            <li><a href="#">Contact us</a></li>
-          </ul>
-        </div>
+          <!-- Footer -->
+          <footer class="mdl-mega-footer" id="footer">
+            <div class="mdl-mega-footer--middle-section">
+              <div class="mdl-mega-footer--drop-down-section">
+                <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+                <h1 class="mdl-mega-footer--heading">Features</h1>
+                <ul class="mdl-mega-footer--link-list">
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Terms</a></li>
+                  <li><a href="#">Partners</a></li>
+                  <li><a href="#">Updates</a></li>
+                </ul>
+              </div>
+              <div class="mdl-mega-footer--drop-down-section">
+                <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+                <h1 class="mdl-mega-footer--heading">Details</h1>
+                <ul class="mdl-mega-footer--link-list">
+                  <li><a href="#">Spec</a></li>
+                  <li><a href="#">Tools</a></li>
+                  <li><a href="#">Resources</a></li>
+                </ul>
+              </div>
+              <div class="mdl-mega-footer--drop-down-section">
+                <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+                <h1 class="mdl-mega-footer--heading">Technology</h1>
+                <ul class="mdl-mega-footer--link-list">
+                  <li><a href="#">How it works</a></li>
+                  <li><a href="#">Patterns</a></li>
+                  <li><a href="#">Usage</a></li>
+                  <li><a href="#">Products</a></li>
+                  <li><a href="#">Contracts</a></li>
+                </ul>
+              </div>
+              <div class="mdl-mega-footer--drop-down-section">
+                <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked>
+                <h1 class="mdl-mega-footer--heading">FAQ</h1>
+                <ul class="mdl-mega-footer--link-list">
+                  <li><a href="#">Questions</a></li>
+                  <li><a href="#">Answers</a></li>
+                  <li><a href="#">Contact us</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="mdl-mega-footer--bottom-section">
+              <div class="mdl-logo">
+                HacknRoll 2017: Lu Yu, Maggie Li Yundi, Yun Heng
+              </div>
+              <ul class="mdl-mega-footer--link-list">
+
+              </ul>
+            </div>
+          </footer>
+        </main>
       </div>
-      <div class="mdl-mega-footer--bottom-section">
-        <div class="mdl-logo">
-          HacknRoll 2017: Lu Yu, Maggie Li Yundi, Yun Heng
-        </div>
-        <ul class="mdl-mega-footer--link-list">
 
-        </ul>
-      </div>
-    </footer>
-  </main>
-</div>
+      <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+      <!-- build:js scripts/main.min.js -->
+      <script src="scripts/main.js"></script>
+      <!-- endbuild -->
+      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-XXXXX-X', 'auto');
+        ga('send', 'pageview');
+      </script>
+      <!-- Built with love using Web Starter Kit -->
 
-<script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-<!-- build:js scripts/main.min.js -->
-<script src="scripts/main.js"></script>
-<!-- endbuild -->
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-XXXXX-X', 'auto');
-  ga('send', 'pageview');
-</script>
-<!-- Built with love using Web Starter Kit -->
+    </body>
 
-</body>
-
-</html>
+    </html>
