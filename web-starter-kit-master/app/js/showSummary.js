@@ -21,7 +21,7 @@
         var email = $("#sample3").val();
         var amount = $("#sample4").val();
 
-        if (!$('input[name=radioName]:checked', '#owe').val() !== null) {
+        if ($('#owe').is(':checked')) {
             e.preventDefault();
         if(sessionStorage.getItem('myUserEntity') !== null) {
             var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
@@ -39,7 +39,8 @@
                 }
             });
         }
-        } else if (!$('input[name=radioName]:checked', '#owed').val() !== null) {
+        } 
+        if ($('#owed').is(':checked')) {
             e.preventDefault();
         if(sessionStorage.getItem('myUserEntity') !== null) {
             var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
