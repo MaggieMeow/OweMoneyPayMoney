@@ -73,4 +73,10 @@
   }
 
   // Your custom JavaScript goes here
+
+  // Add new entry to account
+  function addEntry() {
+    document.getElementByClassName("mdl-mega-footer").disabled = true;//!document.getElementByTagName("footer").disabled
+  }
+
 })();

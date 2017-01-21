@@ -20,24 +20,30 @@ will be correctly compiled during `gulp serve` and `gulp`
  */
 
 html, body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-family: 'Century Gothic', 'Century Gothic', sans-serif;
   margin: 0;
   padding: 0;
 }
-.mdl-demo .mdl-layout__header-row {
-  padding-left: 40px;
+.mdl-layout__header-row h1{
+  letter-spacing: 5px;
 }
-.mdl-demo .mdl-layout.is-small-screen .mdl-layout__header-row h3 {
+.mdl-demo .mdl-layout__header-row {
+  padding-left: 90px;
+
+}
+.mdl-demo .mdl-layout.is-small-screen .mdl-layout__header-row h1 {
   font-size: inherit;
+
 }
 .mdl-demo .mdl-layout__tab-bar-button {
   display: none;
 }
 .mdl-demo .mdl-layout.is-small-screen .mdl-layout__tab-bar .mdl-button {
-  display: none;
+  overflow: visible;
 }
-.mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar,
-.mdl-demo .mdl-layout:not(.is-small-screen) .mdl-layout__tab-bar-container {
+
+.mdl-demo .mdl-layout .mdl-layout__tab-bar,
+.mdl-demo .mdl-layout .mdl-layout__tab-bar-container {
   overflow: visible;
 }
 .mdl-demo .mdl-layout__tab-bar-container {
@@ -113,6 +119,7 @@ html, body {
 }
 .mdl-demo section.section--center {
   max-width: 860px;
+  margin-bottom: 48px;
 }
 .mdl-demo #features section.section--center {
   max-width: 620px;
@@ -212,4 +219,25 @@ html, body {
 }
 .mdl-demo .mdl-menu__container {
   z-index: 99;
+}
+
+table {
+  border-collapse: collapse;
+  border-bottom: 1px solid #D3D3D3;
+  border-top: 1px solid #D3D3D3;
+  font-size: 20px;
+
+}
+
+tr {
+  border-bottom: 1px solid #D3D3D3;
+  border-top: 1px solid #D3D3D3;
+}
+
+td {
+  padding: 10px
+}
+
+form {
+  margin: 48px;
 }

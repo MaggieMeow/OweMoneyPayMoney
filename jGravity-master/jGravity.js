@@ -56,11 +56,12 @@ FUNCTIONS
 			
 			// set default settings
 			var settings = {
-                target: 'div, span, img, ol, ul, li, a, blockquote, button, input, embed, h1, h2, h3, h4, h5, h6, label, object, option, p, pre, span, table',
+                // target: 'div, span, img, ol, ul, li, a, blockquote, button, input, embed, h1, h2, h3, h4, h5, h6, label, object, option, p, pre, span, table',
+				target: 'everything'
 				ignoreClass: '',
 				weight: 20,
-				depth: 1,
-				drag: true
+				depth: 2,
+				drag: false
             }
 			     
             var options =  $.extend(settings, options);
