@@ -127,14 +127,30 @@
          			// }
          			// console.log(userArray);
          			// 	console.log(emailArray);
+                    var receive_content = '<table style="width:100%" id="credit-table">';
+                    var return_content = '<table style="width:100%" id="debt-table">';
          			for (i = 0; i < recordArray.length; i ++) {
          				for (j = 0; j < recordArray.length; j ++) {
          					if (recordArray[i][j] == null) {
 
          					} else {
-         						console.log(emailArray[i] + " is receiving " + recordArray[i][j] + "from " + emailArray[j]);
+                                if (emailArray[i] == email) {
+                                    console.log(emailArray[i] + " is receiving " + recordArray[i][j] + " from " + emailArray[j]);
+                                
+                                        receive_content += '<tr><td>' + 'Account ' +  emailArray[j] +"： "+ " $"+recordArray[i][j] + '</td></tr>';
+                                    
+                                    
+                                } else {
+                                    console.log(emailArray[j] + " is oweing " + recordArray[i][j] + " from " + emailArray[i]);
+                                    return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+recordArray[i][j] + '</td></tr>';
+                                }
+         						
          					}
          				}
+                        receive_content += '</table>';
+                        return_content += '</table>';
+                        $('#receive').html(receive_content);
+                        $('#return').html(return_content);
          			}
          			
 

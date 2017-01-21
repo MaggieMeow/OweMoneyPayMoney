@@ -97,7 +97,7 @@
         <!-- Google sign in and out -->
         <div id="my-signin2" style="padding:16px 0px 0px 5px"></div>
 
-        <script src="scripts/main.js">
+        <script>
           function onSuccess(googleUser) {
 
             var profile = googleUser.getBasicProfile();
@@ -216,9 +216,9 @@
 
                   <div class="mdl-card__supporting-text">
                     <h4>To Receive</h4>
-                    <div id="summary-card-1">asdfasd</div>
+                    
 
-                    <table style="width:100%" id="credit-table">
+                    <table id="receive" style="width:100%" id="credit-table">
                       <!-- To add from database -->
 
                       <tr><td>Test</td></tr>
@@ -249,7 +249,8 @@
                   <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
 
                   <!-- To add from database -->
-                  <table style="width:100%" id="debt-table">
+
+                  <table id="return" style="width:100%" id="debt-table">
 
                     <tr><td>Test</td></tr>
                     <tr><td>Test</td></tr>
@@ -349,7 +350,7 @@
 
             <div class="mdl-card__supporting-text">
               <h4>To Receive</h4>
-              <div id="summary-card-1">asdfasd</div>
+              
               
               <table style="width:100%" id="credit-table">
                 <!-- To add from database -->
