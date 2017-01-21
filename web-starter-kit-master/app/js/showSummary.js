@@ -16,6 +16,31 @@
            
     //       $('#summary-card-1').html(content);
     //      }
+
+    $("#submitnewform").submit(function(e) {
+        var email = $("#sample3").val();
+        var amount = $("#sample4").val();
+
+        e.preventDefault();
+        if(sessionStorage.getItem('myUserEntity') !== null) {
+            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+            var myemail = em.Email;
+            $.ajax({
+                type: 'POST',
+                url: '../php/getSummary.php',
+                data: {
+                    cmd: 'add',
+                    email1: myemail,
+                    email2: email,
+                    amount: amount,
+                },
+                success: function(feedback) {
+                }
+            });
+        }
+        return false;
+    });
+
     	 var valid_session = false;
          if(sessionStorage.getItem('myUserEntity') !== null) {
          	var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
