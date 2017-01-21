@@ -152,29 +152,85 @@
          			// 	console.log(emailArray);
                     var receive_content = '<table style="width:100%" id="credit-table">';
                     var return_content = '<table style="width:100%" id="debt-table">';
-         			for (i = 0; i < recordArray.length; i ++) {
-         				for (j = 0; j < recordArray.length; j ++) {
-         					if (recordArray[i][j] == null) {
 
-         					} else {
-                                if (emailArray[i] == email) {
-                                    console.log(emailArray[i] + " is receiving " + recordArray[i][j] + " from " + emailArray[j]);
-                                
-                                        receive_content += '<tr><td>' + 'Account ' +  emailArray[j] +"： "+ " $"+recordArray[i][j] + '</td></tr>';
-                                    
-                                    
+                    var index = 0;
+                    for (i = 0; i < emailArray.length; i ++) {
+                        if (emailArray[i] == email) {
+                            index = i;
+                        }
+                    }
+
+                    // for (i = 0; i < recordArray[index].length; i ++) {
+                    //     if (recordArray[index][i] !== null) {
+                    //         var temp = recordArray[index][i];
+                    //         recordArray[index][i] = temp - recordArray[i][index];
+                    //     }
+                    // }
+
+                    for (i = 0; i < recordArray.length; i ++) {
+                        for (j = 0; j < recordArray.length; j ++) {
+                            if (j == index) {
+                                if (recordArray[i][j] !== null) {
+                                    if (recordArray[j][i] == null) {
+                                        recordArray[j][i] = 0 - recordArray[i][j];
+                                    } else {
+                                        recordArray[j][i] = recordArray[j][i] - recordArray[i][j];
+                                    }
                                 } else {
-                                    console.log(emailArray[j] + " is oweing " + recordArray[i][j] + " from " + emailArray[i]);
-                                    return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+recordArray[i][j] + '</td></tr>';
+
                                 }
-         						
-         					}
-         				}
-                        receive_content += '</table>';
-                        return_content += '</table>';
-                        $('#receive').html(receive_content);
+                            }
+                        }
+                    }
+
+                    for (i = 0; i < recordArray[index].length; i ++) {
+                        if (recordArray[index][i] !== null) {
+                            var money = recordArray[index][i];
+                            if (money > 0) {
+                                        console.log("i am receiving " + money + " from " + emailArray[i]);
+                                
+                                        receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+money + '</td></tr>';
+                                    
+                                    } else if (money < 0){
+                                        console.log("i am oweing " + money + " from " + emailArray[i]);
+                                        return_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ (0-money) + '</td></tr>';
+                                    }
+                        }
+                    }
+                    $('#receive').html(receive_content);
                         $('#return').html(return_content);
-         			}
+
+
+         			// for (i = 0; i < recordArray.length; i ++) {
+         			// 	for (j = 0; j < recordArray.length; j ++) {
+         			// 		if (recordArray[i][j] == null) {
+
+         			// 		} else {
+            //                     var money = recordArray[i][j] - recordArray[j][i];
+
+            //                     if (emailArray[i] == email) {
+            //                         if (money >= 0) {
+            //                             console.log(emailArray[i] + " is receiving " + money + " from " + emailArray[j]);
+                                
+            //                             receive_content += '<tr><td>' + 'Account ' +  emailArray[j] +"： "+ " $"+money + '</td></tr>';
+                                    
+            //                         } else {
+            //                             console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
+            //                             return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money*-1 + '</td></tr>';
+            //                         }
+                                    
+                                    
+            //                     } else {
+            //                         console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
+            //                         return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money + '</td></tr>';
+            //                     }
+         						
+         			// 		}
+         			// 	}
+            //             receive_content += '</table>';
+            //             return_content += '</table>';
+                        
+         			// }
          			
 
          			// for (i = 0; i < userArray.length; i ++) {
