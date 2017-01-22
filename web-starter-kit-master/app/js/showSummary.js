@@ -195,14 +195,14 @@
                             if (money > 0) {
                                         console.log("i am receiving " + money + " from " + emailArray[i]);
                                 
-                                        receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ money + '</td>' + 
+                                        receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ money + '</td>' + '<td>' + 
                                         '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">' +
                                         '<i class="material-icons">email</i>' +
                                         '</button>' + '</td></tr>';
                                     
                                     } else if (money < 0){
                                         console.log("i am oweing " + money + " from " + emailArray[i]);
-                                        return_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ (0-money) + '</td>' + 
+                                        return_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ (0-money) + '</td>' + '<td>' + 
                                         '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">' +
                                         '<i class="material-icons">email</i>' +
                                         '</button>' + '</td></tr>';
