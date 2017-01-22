@@ -196,9 +196,14 @@
                   <div> </div>
                   <div> </div>
                   <div> </div>
-                  <button id="submitnew" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button">
+                  <button id="submitnew" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect submit-button" onclick="submitRefresh()">
                     Submit
                   </button>
+                  <script type="text/javascript">
+                    function submitRefresh() {
+                      window.open ('http://localhost/app/','_self',false);
+                  }
+                  </script>
                 </form>
 
               </section>
@@ -229,69 +234,69 @@
 
                 </div>
                 
-            </section>
+              </section>
 
-            <!-- Second Section -->
-            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+              <!-- Second Section -->
+              <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
 
 
-              <div class="mdl-card mdl-cell mdl-cell--12-col">
-                <div class="mdl-card__supporting-text">
-                  <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
+                <div class="mdl-card mdl-cell mdl-cell--12-col">
+                  <div class="mdl-card__supporting-text">
+                    <h4 class="mdl-cell mdl-cell--12-col">To Return</h4>
 
-                  <!-- To add from database -->
+                    <!-- To add from database -->
 
-                  <table id="return" style="width:100%" id="debt-table">
+                    <table id="return" style="width:100%" id="debt-table">
 
-                    <tr><td>Test</td></tr>
-                    <tr><td>Test</td></tr>
-                    <tr><td>Test</td></tr>
-                    <tr><td>Test</td></tr>
-                    <tr><td>Test</td></tr>
-                  </table>
+                      <tr><td>Test</td></tr>
+                      <tr><td>Test</td></tr>
+                      <tr><td>Test</td></tr>
+                      <tr><td>Test</td></tr>
+                      <tr><td>Test</td></tr>
+                    </table>
+
+                  </div>
 
                 </div>
 
-              </div>
-              
+              </section>
+            </div>
+
+            <!-- Friend list Tab -->
+            <div class="mdl-layout__tab-panel" id="friend-list">
+             <script type="text/javascript">
+              window.onload = function() {
+                var section = document.getElementById("friend-list");
+                for (/*number of people in data base*/var k = 0; k < 5; k++ ) {
+                  var new_card = document.createElement('div');
+
+                  new_card.innerHTML = '<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">' +
+                  '<div class="mdl-card mdl-cell mdl-cell--12-col">' +
+                  '<div class="mdl-card__supporting-text">' +
+                  '<h4 class="mdl-cell mdl-cell--12-col"> Name </h4>' +
+
+                  '<table style="width:100%" id="history-table">' +
+
+                  '<tr><td>Test</td></tr>' +
+                  '<tr><td>Test</td></tr>' +
+                  '<tr><td>Test</td></tr>' +
+                  '<tr><td>Test</td></tr>' +
+                  '<tr><td>Test</td></tr>' +
+                  '</table>' +
+                  '</div>' +
+                  '</div>' +
+                  '</section>';
+                  section.appendChild(new_card);
+                }
+
+
+              }
+            </script>
+            <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+
+
             </section>
           </div>
-
-          <!-- Friend list Tab -->
-          <div class="mdl-layout__tab-panel" id="friend-list">
-           <script type="text/javascript">
-            window.onload = function() {
-              var section = document.getElementById("friend-list");
-              for (/*number of people in data base*/var k = 0; k < 5; k++ ) {
-                var new_card = document.createElement('div');
-
-                new_card.innerHTML = '<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">' +
-                '<div class="mdl-card mdl-cell mdl-cell--12-col">' +
-                '<div class="mdl-card__supporting-text">' +
-                '<h4 class="mdl-cell mdl-cell--12-col"> Name </h4>' +
-
-                '<table style="width:100%" id="history-table">' +
-
-                '<tr><td>Test</td></tr>' +
-                '<tr><td>Test</td></tr>' +
-                '<tr><td>Test</td></tr>' +
-                '<tr><td>Test</td></tr>' +
-                '<tr><td>Test</td></tr>' +
-                '</table>' +
-                '</div>' +
-                '</div>' +
-                '</section>';
-                section.appendChild(new_card);
-              }
-
-
-            }
-          </script>
-          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-
-
-          </section>
-        </div>
 
 
 
