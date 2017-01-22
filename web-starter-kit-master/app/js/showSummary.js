@@ -71,26 +71,26 @@
       var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
       var email = em.Email;
       $.ajax({
-         type: 'POST',
-         url: '../php/getSummary.php',
-         data: {
-            cmd: 'register',
-            email: email,
-        },
-        success: function(feedback) {
+       type: 'POST',
+       url: '../php/getSummary.php',
+       data: {
+        cmd: 'register',
+        email: email,
+    },
+    success: function(feedback) {
+        console.log(feedback);
+        valid_session = true;
+
+        $.ajax({
+            type: 'POST',
+            url: '../php/getSummary.php',
+            data: {
+             cmd: 'retrieve',
+             email: email,
+         },
+         success: function(feedback) {
+
             console.log(feedback);
-            valid_session = true;
-
-            $.ajax({
-                type: 'POST',
-                url: '../php/getSummary.php',
-                data: {
-                   cmd: 'retrieve',
-                   email: email,
-               },
-               success: function(feedback) {
-
-                console.log(feedback);
          			//valid_session = true;
          			var parsed = JSON.parse(feedback);
          			//var records = JSON.parse(us2.record);
@@ -100,10 +100,10 @@
          			var recordArray = [];
          			
 
-                   for ( var i = 0; i < 20; i++ ) {
-                       recordArray[i] = []; 
-                   }
-                   for (i = 0; i < parsedArray.length; i ++) {
+                     for ( var i = 0; i < 20; i++ ) {
+                         recordArray[i] = []; 
+                     }
+                     for (i = 0; i < parsedArray.length; i ++) {
          				//var userLeft = 
          				// if (parsedArray[i].user1 == email) {
          				// 		if ($.inArray(parseInt(parsedArray[i].uid2), userArray) == -1) { //is not note stored
@@ -142,10 +142,10 @@
          				if (recordArray[user1_id][user2_id] == null) {
          					recordArray[user1_id][user2_id] = parseInt(parsedArray[i].amount);
          				} else {
-                           var temp = recordArray[user1_id][user2_id];
-                           recordArray[user1_id][user2_id] = temp + parseInt(parsedArray[i].amount);
-                       }
-                   }
+                             var temp = recordArray[user1_id][user2_id];
+                             recordArray[user1_id][user2_id] = temp + parseInt(parsedArray[i].amount);
+                         }
+                     }
          			// for (i = 0; i < recordArray.length; i ++) {
          			// 	console.log(recordArray[i]);
 
@@ -191,11 +191,12 @@
                             if (money > 0) {
                                 console.log("i am receiving " + money + " from " + emailArray[i]);
                                 
-                                receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ money + '</td>' + 
-                                '<button class="email-reminder mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="send_mail(' + 
-                                emailArray[i], money + ')">' +
+                                receive_content += '<tr><td class = "account-cell">' +  emailArray[i] +'</td><td>' +":"+ " $"+'</td><td class="money-cell">'+ money + '</td><td>' + 
+                                '<button class="email-reminder mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect")">' +
                                 '<i class="material-icons">email</i>' +
                                 '</button>' + '</td></tr>';
+
+                                
 
                             } else if (money < 0){
                                 console.log("i am oweing " + money + " from " + emailArray[i]);
@@ -207,17 +208,23 @@
                     $('#return').html(return_content);
 
 
-                    function send_mail(mail1, amt){
+                    (send_mail(emailArray[i], money));
+
+                    $(.email-reminder).click(function send_mail() {
                         // if(sessionStorage.getItem('myUserEntity') !== null) {
                         //     var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
                         //     var myemail = em.Email;
-                            email_subject = "O$P$ Reminder";
-                            email_body = "Hola! You are kindly reminded by the lovely O$P$ app to return $" + amt + "to your friend" + mail1 +". Please do it soon! Thank you<3"
+                        var $tr = $(this).parents("tr");
+                        var mail1 = $tr.find(".account-cell").html();
+                        var mail1 = $tr.find(".money-cell").html();
+                        
+                        var email_subject = "O$P$ Reminder";
+                        var email_body = "Hola! You are kindly reminded by the lovely O$P$ app to return $" + amt + "to your friend" + mail1 +". Please do it soon! Thank you<3"
 
-                            window.location.href = "mailto:" + mail1 + "?subject=" + email_subject + "&body=" + email_body;
+                        window.location.href = "mailto:" + mail1 + "?subject=" + email_subject + "&body=" + email_body;
                         // }
 
-                    }
+                    });
 
 
          			// for (i = 0; i < recordArray.length; i ++) {
@@ -255,11 +262,11 @@
          			// for (i = 0; i < userArray.length; i ++) {
 
          			// }
-               }
-           });
-                }
+                 }
+             });
+}
 
-            })
+})
 
 }
 
