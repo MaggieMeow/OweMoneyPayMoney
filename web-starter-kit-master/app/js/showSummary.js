@@ -13,11 +13,10 @@
 		  // }
 		  // content += '</table>';
     //        // document.getElementById("signOutText").style.display = "inline";
-
+           
     //       $('#summary-card-1').html(content);
     //      }
 
-    
 
     $("#submitnewform").submit(function(e) {
         var email = $("#sample3").val();
@@ -25,46 +24,47 @@
 
         if ($('#owed').is(':checked')) {
             e.preventDefault();
-            if(sessionStorage.getItem('myUserEntity') !== null) {
-                var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-                var myemail = em.Email;
-                $.ajax({
-                    type: 'POST',
-                    url: '../php/getSummary.php',
-                    data: {
-                        cmd: 'add',
-                        email1: myemail,
-                        email2: email,
-                        amount: amount,
-                    },
-                    success: function(feedback) {
-                    }
-                });
-            }
+        if(sessionStorage.getItem('myUserEntity') !== null) {
+            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+            var myemail = em.Email;
+            $.ajax({
+                type: 'POST',
+                url: '../php/getSummary.php',
+                data: {
+                    cmd: 'add',
+                    email1: myemail,
+                    email2: email,
+                    amount: amount,
+                },
+                success: function(feedback) {
+                }
+            });
+        }
         } 
         if ($('#owe').is(':checked')) {
             e.preventDefault();
-            if(sessionStorage.getItem('myUserEntity') !== null) {
-                var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-                var myemail = em.Email;
-                $.ajax({
-                    type: 'POST',
-                    url: '../php/getSummary.php',
-                    data: {
-                        cmd: 'add',
-                        email1: email,
-                        email2: myemail,
-                        amount: amount,
-                    },
-                    success: function(feedback) {
-                    }
-                });
-            }
+        if(sessionStorage.getItem('myUserEntity') !== null) {
+            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+            var myemail = em.Email;
+            $.ajax({
+                type: 'POST',
+                url: '../php/getSummary.php',
+                data: {
+                    cmd: 'add',
+                    email1: email,
+                    email2: myemail,
+                    amount: amount,
+                },
+                success: function(feedback) {
+                }
+            });
+        }
         }
 
         
         return false;
     });
+
 
     var valid_session = false;
     if(sessionStorage.getItem('myUserEntity') !== null) {
@@ -91,6 +91,33 @@
          success: function(feedback) {
 
             console.log(feedback);
+// =======
+//     	 var valid_session = false;
+//          if(sessionStorage.getItem('myUserEntity') !== null) {
+//          	var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+//          	var email = em.Email;
+//          	$.ajax({
+//          		type: 'POST',
+//          		url: '../php/getSummary.php',
+//          		data: {
+//          			cmd: 'register',
+//          			email: email,
+//          		},
+//          		success: function(feedback) {
+//          			console.log(feedback);
+//          			valid_session = true;
+
+//          		$.ajax({
+//          			type: 'POST',
+//          			url: '../php/getSummary.php',
+//          			data: {
+//          				cmd: 'retrieve',
+//          				email: email,
+//          			},
+//          			success: function(feedback) {
+
+//          			console.log(feedback);
+// >>>>>>> 8ea5c0b3a9ad325b2c1c8d4f18cc68c6ee35080b
          			//valid_session = true;
          			var parsed = JSON.parse(feedback);
          			//var records = JSON.parse(us2.record);
@@ -100,10 +127,17 @@
          			var recordArray = [];
          			
 
+
                      for ( var i = 0; i < 20; i++ ) {
                          recordArray[i] = []; 
                      }
                      for (i = 0; i < parsedArray.length; i ++) {
+// =======
+// 					for ( var i = 0; i < 20; i++ ) {
+//     					recordArray[i] = []; 
+// 					}
+//          			for (i = 0; i < parsedArray.length; i ++) {
+// >>>>>>> 8ea5c0b3a9ad325b2c1c8d4f18cc68c6ee35080b
          				//var userLeft = 
          				// if (parsedArray[i].user1 == email) {
          				// 		if ($.inArray(parseInt(parsedArray[i].uid2), userArray) == -1) { //is not note stored
@@ -142,10 +176,12 @@
          				if (recordArray[user1_id][user2_id] == null) {
          					recordArray[user1_id][user2_id] = parseInt(parsedArray[i].amount);
          				} else {
+
                              var temp = recordArray[user1_id][user2_id];
                              recordArray[user1_id][user2_id] = temp + parseInt(parsedArray[i].amount);
                          }
                      }
+
          			// for (i = 0; i < recordArray.length; i ++) {
          			// 	console.log(recordArray[i]);
 
@@ -155,7 +191,9 @@
                     var receive_content = '<table style="width:100%" id="credit-table">';
                     var return_content = '<table style="width:100%" id="debt-table">';
 
+
                     var index = 0;
+                    var num_interactions = 0;
                     for (i = 0; i < emailArray.length; i ++) {
                         if (emailArray[i] == email) {
                             index = i;
@@ -186,11 +224,15 @@
                     }
 
                     for (i = 0; i < recordArray[index].length; i ++) {
-                        if (recordArray[index][i] !== null) {
+                        var temp2 = recordArray[index][i];
+                        if (temp2 !== null && temp2 !== 0 && !isNaN(temp2)) {
+                            console.log(recordArray[index][i]);
+                            num_interactions ++;
                             var money = recordArray[index][i];
                             if (money > 0) {
-                                console.log("i am receiving " + money + " from " + emailArray[i]);
+                                        console.log("i am receiving " + money + " from " + emailArray[i]);
                                 
+
                                 receive_content += '<tr><td class = "account-cell">' +  emailArray[i] +'</td><td>' +":"+ " $"+'</td><td class="money-cell">'+ money + '</td><td>' + 
                                 '<button class="email-reminder mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect")">' +
                                 '<i class="material-icons">email</i>' +
@@ -202,13 +244,11 @@
                                 console.log("i am oweing " + money + " from " + emailArray[i]);
                                 return_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ (0-money) + '</td></tr>';
                             }
+
+
                         }
                     }
-                    $('#receive').html(receive_content);
-                    $('#return').html(return_content);
 
-
-                    (send_mail(emailArray[i], money));
 
                     $(.email-reminder).click(function send_mail() {
                         // if(sessionStorage.getItem('myUserEntity') !== null) {
@@ -226,6 +266,9 @@
 
                     });
 
+                    $('#receive').html(receive_content);
+                    $('#return').html(return_content);
+                    console.log("interactions: " + num_interactions);
 
          			// for (i = 0; i < recordArray.length; i ++) {
          			// 	for (j = 0; j < recordArray.length; j ++) {
@@ -237,31 +280,32 @@
             //                     if (emailArray[i] == email) {
             //                         if (money >= 0) {
             //                             console.log(emailArray[i] + " is receiving " + money + " from " + emailArray[j]);
-
+                                
             //                             receive_content += '<tr><td>' + 'Account ' +  emailArray[j] +"： "+ " $"+money + '</td></tr>';
-
+                                    
             //                         } else {
             //                             console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
             //                             return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money*-1 + '</td></tr>';
             //                         }
-
-
+                                    
+                                    
             //                     } else {
             //                         console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
             //                         return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money + '</td></tr>';
             //                     }
-
+         						
          			// 		}
          			// 	}
             //             receive_content += '</table>';
             //             return_content += '</table>';
-
+                        
          			// }
          			
 
          			// for (i = 0; i < userArray.length; i ++) {
 
          			// }
+<<<<<<< HEAD
                  }
              });
 }
@@ -271,5 +315,10 @@
 }
 
 
+         	})
 
-});
+         }
+
+         
+   
+      });
