@@ -153,7 +153,9 @@
                     var receive_content = '<table style="width:100%" id="credit-table">';
                     var return_content = '<table style="width:100%" id="debt-table">';
 
+
                     var index = 0;
+                    var num_interactions = 0;
                     for (i = 0; i < emailArray.length; i ++) {
                         if (emailArray[i] == email) {
                             index = i;
@@ -184,7 +186,10 @@
                     }
 
                     for (i = 0; i < recordArray[index].length; i ++) {
-                        if (recordArray[index][i] !== null) {
+                        var temp2 = recordArray[index][i];
+                        if (temp2 !== null && temp2 !== 0 && !isNaN(temp2)) {
+                            console.log(recordArray[index][i]);
+                            num_interactions ++;
                             var money = recordArray[index][i];
                             if (money > 0) {
                                         console.log("i am receiving " + money + " from " + emailArray[i]);
@@ -197,9 +202,12 @@
                                     }
                         }
                     }
-                    $('#receive').html(receive_content);
-                        $('#return').html(return_content);
 
+
+
+                    $('#receive').html(receive_content);
+                    $('#return').html(return_content);
+                    console.log("interactions: " + num_interactions);
 
          			// for (i = 0; i < recordArray.length; i ++) {
          			// 	for (j = 0; j < recordArray.length; j ++) {
