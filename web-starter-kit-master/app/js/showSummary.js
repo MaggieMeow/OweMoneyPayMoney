@@ -13,10 +13,11 @@
 		  // }
 		  // content += '</table>';
     //        // document.getElementById("signOutText").style.display = "inline";
-           
+
     //       $('#summary-card-1').html(content);
     //      }
 
+    
 
     $("#submitnewform").submit(function(e) {
         var email = $("#sample3").val();
@@ -24,72 +25,72 @@
 
         if ($('#owed').is(':checked')) {
             e.preventDefault();
-        if(sessionStorage.getItem('myUserEntity') !== null) {
-            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-            var myemail = em.Email;
-            $.ajax({
-                type: 'POST',
-                url: '../php/getSummary.php',
-                data: {
-                    cmd: 'add',
-                    email1: myemail,
-                    email2: email,
-                    amount: amount,
-                },
-                success: function(feedback) {
-                }
-            });
-        }
+            if(sessionStorage.getItem('myUserEntity') !== null) {
+                var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+                var myemail = em.Email;
+                $.ajax({
+                    type: 'POST',
+                    url: '../php/getSummary.php',
+                    data: {
+                        cmd: 'add',
+                        email1: myemail,
+                        email2: email,
+                        amount: amount,
+                    },
+                    success: function(feedback) {
+                    }
+                });
+            }
         } 
         if ($('#owe').is(':checked')) {
             e.preventDefault();
-        if(sessionStorage.getItem('myUserEntity') !== null) {
-            var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-            var myemail = em.Email;
-            $.ajax({
-                type: 'POST',
-                url: '../php/getSummary.php',
-                data: {
-                    cmd: 'add',
-                    email1: email,
-                    email2: myemail,
-                    amount: amount,
-                },
-                success: function(feedback) {
-                }
-            });
-        }
+            if(sessionStorage.getItem('myUserEntity') !== null) {
+                var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+                var myemail = em.Email;
+                $.ajax({
+                    type: 'POST',
+                    url: '../php/getSummary.php',
+                    data: {
+                        cmd: 'add',
+                        email1: email,
+                        email2: myemail,
+                        amount: amount,
+                    },
+                    success: function(feedback) {
+                    }
+                });
+            }
         }
 
         
         return false;
     });
 
-    	 var valid_session = false;
-         if(sessionStorage.getItem('myUserEntity') !== null) {
-         	var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
-         	var email = em.Email;
-         	$.ajax({
-         		type: 'POST',
-         		url: '../php/getSummary.php',
-         		data: {
-         			cmd: 'register',
-         			email: email,
-         		},
-         		success: function(feedback) {
-         			console.log(feedback);
-         			valid_session = true;
+    var valid_session = false;
+    if(sessionStorage.getItem('myUserEntity') !== null) {
+      var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+      var email = em.Email;
+      $.ajax({
+         type: 'POST',
+         url: '../php/getSummary.php',
+         data: {
+            cmd: 'register',
+            email: email,
+        },
+        success: function(feedback) {
+            console.log(feedback);
+            valid_session = true;
 
-         		$.ajax({
-         			type: 'POST',
-         			url: '../php/getSummary.php',
-         			data: {
-         				cmd: 'retrieve',
-         				email: email,
-         			},
-         			success: function(feedback) {
+            $.ajax({
+                type: 'POST',
+                url: '../php/getSummary.php',
+                data: {
+                   cmd: 'retrieve',
+                   email: email,
+               },
+               success: function(feedback) {
 
-         			console.log(feedback);
+                console.log(feedback);
          			//valid_session = true;
          			var parsed = JSON.parse(feedback);
          			//var records = JSON.parse(us2.record);
@@ -99,10 +100,10 @@
          			var recordArray = [];
          			
 
-					for ( var i = 0; i < 20; i++ ) {
-    					recordArray[i] = []; 
-					}
-         			for (i = 0; i < parsedArray.length; i ++) {
+                   for ( var i = 0; i < 20; i++ ) {
+                       recordArray[i] = []; 
+                   }
+                   for (i = 0; i < parsedArray.length; i ++) {
          				//var userLeft = 
          				// if (parsedArray[i].user1 == email) {
          				// 		if ($.inArray(parseInt(parsedArray[i].uid2), userArray) == -1) { //is not note stored
@@ -141,10 +142,10 @@
          				if (recordArray[user1_id][user2_id] == null) {
          					recordArray[user1_id][user2_id] = parseInt(parsedArray[i].amount);
          				} else {
-         				var temp = recordArray[user1_id][user2_id];
-         				recordArray[user1_id][user2_id] = temp + parseInt(parsedArray[i].amount);
-         				}
-         			}
+                           var temp = recordArray[user1_id][user2_id];
+                           recordArray[user1_id][user2_id] = temp + parseInt(parsedArray[i].amount);
+                       }
+                   }
          			// for (i = 0; i < recordArray.length; i ++) {
          			// 	console.log(recordArray[i]);
 
@@ -193,8 +194,9 @@
                             num_interactions ++;
                             var money = recordArray[index][i];
                             if (money > 0) {
-                                        console.log("i am receiving " + money + " from " + emailArray[i]);
+                                console.log("i am receiving " + money + " from " + emailArray[i]);
                                 
+<<<<<<< HEAD
                                         receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ money + '</td>' + '<td>' + 
                                         '<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">' +
                                         '<i class="material-icons">email</i>' +
@@ -209,6 +211,35 @@
                                     }
                         }
                     }
+=======
+                                receive_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ money + '</td>' + 
+                                '<button class="email-reminder mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick="send_mail(' + 
+                                emailArray[i], money + ')">' +
+                                '<i class="material-icons">email</i>' +
+                                '</button>' + '</td></tr>';
+
+                            } else if (money < 0){
+                                console.log("i am oweing " + money + " from " + emailArray[i]);
+                                return_content += '<tr><td>' + 'Account ' +  emailArray[i] +": "+ " $"+ (0-money) + '</td></tr>';
+                            }
+                        }
+                    }
+                    $('#receive').html(receive_content);
+                    $('#return').html(return_content);
+
+
+                    function send_mail(mail1, amt){
+                        // if(sessionStorage.getItem('myUserEntity') !== null) {
+                        //     var em = JSON.parse(sessionStorage.getItem('myUserEntity'));
+                        //     var myemail = em.Email;
+                            email_subject = "O$P$ Reminder";
+                            email_body = "Hola! You are kindly reminded by the lovely O$P$ app to return $" + amt + "to your friend" + mail1 +". Please do it soon! Thank you<3"
+
+                            window.location.href = "mailto:" + mail1 + "?subject=" + email_subject + "&body=" + email_body;
+                        // }
+
+                    }
+>>>>>>> d52ba354e48285e548cf36fd8450535e4f7e39c8
 
 
 
@@ -226,39 +257,39 @@
             //                     if (emailArray[i] == email) {
             //                         if (money >= 0) {
             //                             console.log(emailArray[i] + " is receiving " + money + " from " + emailArray[j]);
-                                
+
             //                             receive_content += '<tr><td>' + 'Account ' +  emailArray[j] +"： "+ " $"+money + '</td></tr>';
-                                    
+
             //                         } else {
             //                             console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
             //                             return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money*-1 + '</td></tr>';
             //                         }
-                                    
-                                    
+
+
             //                     } else {
             //                         console.log(emailArray[j] + " is oweing " + money + " from " + emailArray[i]);
             //                         return_content += '<tr><td>' + 'Account ' +  emailArray[i] +":"+ " $"+ money + '</td></tr>';
             //                     }
-         						
+
          			// 		}
          			// 	}
             //             receive_content += '</table>';
             //             return_content += '</table>';
-                        
+
          			// }
          			
 
          			// for (i = 0; i < userArray.length; i ++) {
 
          			// }
-			         	}
-			         });
-         		}
+               }
+           });
+                }
 
-         	})
+            })
 
-         }
+}
 
-         
-   
-      });
+
+
+});
